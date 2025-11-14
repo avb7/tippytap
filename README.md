@@ -154,9 +154,6 @@ npm run reinstall    # Build, package, and open for installation
 
 - Works in Cursor IDE
 
-## License
-
-MIT (add LICENSE file for distribution)
 
 ## Contributing
 
