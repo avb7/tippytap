@@ -2,44 +2,6 @@
 
 A powerful VS Code extension that transforms markdown editing with a modern WYSIWYG editor powered by [Tiptap](https://tiptap.dev). Edit markdown files visually with real-time preview, smart diff detection for AI edits, and seamless integration with Cursor IDE.
 
-## Architecture
-
-```mermaid
-graph TB
-    subgraph "VS Code"
-        DOC[Document<br/>markdown file]
-        EXT[Extension Host<br/>TiptapEditorProvider]
-    end
-    
-    subgraph "Webview"
-        REACT[React App]
-        TIPTAP[Tiptap Editor<br/>StarterKit + Extensions]
-        DIFF[Diff View<br/>Accept/Reject]
-        TOC[Table of Contents<br/>Navigation]
-    end
-    
-    subgraph "External"
-        AI[Cursor AI<br/>Other Editors]
-    end
-    
-    DOC -->|read| EXT
-    EXT -->|init content| REACT
-    REACT -->|markdown-it| TIPTAP
-    TIPTAP -->|user edits| REACT
-    REACT -->|serialize| EXT
-    EXT -->|write| DOC
-    
-    AI -.->|external edit| DOC
-    DOC -.->|change event| EXT
-    EXT -.->|show diff| DIFF
-    DIFF -.->|accept/reject| EXT
-    
-    style TIPTAP fill:#4ade80
-    style DIFF fill:#fbbf24
-    style AI fill:#60a5fa
-    style TOC fill:#a78bfa
-```
-
 ## Features
 
 ### Rich Text Editing
@@ -228,17 +190,6 @@ npm run build        # Build once
 npm run package      # Create .vsix package
 npm run reinstall    # Build, package, and open for installation
 ```
-
-## Documentation
-
-- [Installation Guide](INSTALL.md) - Detailed installation instructions
-
-
-- [Usage Guide](USAGE.md) - Complete feature documentation
-
-
-- [Implementation Details](IMPLEMENTATION.md) - Technical architecture
-
 
 ## Requirements
 
