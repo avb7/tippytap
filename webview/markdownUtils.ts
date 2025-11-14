@@ -37,14 +37,15 @@ export function docToMarkdown(doc: ProseMirrorNode): string {
             // Nodes
             doc(state, node) {
                 state.renderContent(node);
-                // Ensure document ends with newline
-                if (state.out && !state.out.endsWith('\n')) {
+                // Ensure document ends with single newline
+                const out = state.out || '';
+                if (!out.endsWith('\n')) {
                     state.write('\n');
                 }
             },
             paragraph(state, node) {
                 state.renderInline(node);
-                state.closeBlock(node);
+                state.write('\n\n');
             },
             blockquote(state, node) {
                 state.wrapBlock('> ', null, node, () => state.renderContent(node));
@@ -53,25 +54,23 @@ export function docToMarkdown(doc: ProseMirrorNode): string {
                 state.write('```' + (node.attrs.language || '') + '\n');
                 state.text(node.textContent, false);
                 state.ensureNewLine();
-                state.write('```');
-                state.closeBlock(node);
+                state.write('```\n\n');
             },
             mermaid(state, node) {
                 // Serialize mermaid diagrams back to markdown code blocks
                 state.write('```mermaid\n');
                 state.text(node.attrs.content || '', false);
                 state.ensureNewLine();
-                state.write('```');
-                state.closeBlock(node);
+                state.write('```\n\n');
             },
             heading(state, node) {
                 state.write(state.repeat('#', node.attrs.level) + ' ');
                 state.renderInline(node);
-                state.closeBlock(node);
+                state.write('\n\n');
             },
             horizontalRule(state, node) {
                 state.write(node.attrs.markup || '---');
-                state.closeBlock(node);
+                state.write('\n\n');
             },
             hardBreak(state, node, parent, index) {
                 for (let i = index + 1; i < parent.childCount; i++) {
@@ -102,7 +101,7 @@ export function docToMarkdown(doc: ProseMirrorNode): string {
             table(state, node) {
                 state.write('\n');
                 state.renderContent(node);
-                state.closeBlock(node);
+                state.write('\n');
             },
             tableRow(state, node) {
                 state.write('|');
@@ -133,9 +132,9 @@ export function docToMarkdown(doc: ProseMirrorNode): string {
                 state.write(' ');
             },
         }, {
-            // Marks
-            em: { open: '*', close: '*', mixable: true, expelEnclosingWhitespace: true },
-            strong: { open: '**', close: '**', mixable: true, expelEnclosingWhitespace: true },
+            // Marks - using Tiptap's mark names
+            bold: { open: '**', close: '**', mixable: true, expelEnclosingWhitespace: true },
+            italic: { open: '*', close: '*', mixable: true, expelEnclosingWhitespace: true },
             code: { open: '`', close: '`', escape: false },
             strike: { open: '~~', close: '~~', mixable: true, expelEnclosingWhitespace: true },
             link: {
@@ -150,7 +149,8 @@ export function docToMarkdown(doc: ProseMirrorNode): string {
 
         const markdown = serializer.serialize(doc);
         console.log('[markdownUtils] Serialized markdown length:', markdown.length);
-        console.log('[markdownUtils] First 200 chars:', markdown.substring(0, 200));
+        console.log('[markdownUtils] First 500 chars:', markdown.substring(0, 500));
+        console.log('[markdownUtils] Last 200 chars:', markdown.substring(markdown.length - 200));
         return markdown;
     } catch (error) {
         console.error('[markdownUtils] Error serializing to markdown:', error);
