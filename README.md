@@ -2,6 +2,11 @@
 
 A powerful VS Code extension that transforms markdown editing with a modern WYSIWYG editor powered by [Tiptap](https://tiptap.dev). Edit markdown files visually with real-time preview, smart diff detection for AI edits, and seamless integration with Cursor IDE.
 
+<img width="1755" height="769" alt="Screenshot 2025-11-13 at 11 54 07 PM" src="https://github.com/user-attachments/assets/d6363051-61d6-4c66-aeab-376d8218b102" />
+
+<img width="336" height="167" alt="Screenshot 2025-11-13 at 11 54 15 PM" src="https://github.com/user-attachments/assets/80e1fdfb-a09e-48b2-896b-0b4a054680e6" />
+
+
 ## Features
 
 ### Rich Text Editing
