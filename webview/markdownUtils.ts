@@ -45,7 +45,8 @@ export function docToMarkdown(doc: ProseMirrorNode): string {
             },
             paragraph(state, node) {
                 state.renderInline(node);
-                state.write('\n\n');
+                state.write('\n');
+                state.closeBlock(node);
             },
             blockquote(state, node) {
                 state.wrapBlock('> ', null, node, () => state.renderContent(node));
@@ -54,23 +55,27 @@ export function docToMarkdown(doc: ProseMirrorNode): string {
                 state.write('```' + (node.attrs.language || '') + '\n');
                 state.text(node.textContent, false);
                 state.ensureNewLine();
-                state.write('```\n\n');
+                state.write('```');
+                state.closeBlock(node);
             },
             mermaid(state, node) {
                 // Serialize mermaid diagrams back to markdown code blocks
                 state.write('```mermaid\n');
                 state.text(node.attrs.content || '', false);
                 state.ensureNewLine();
-                state.write('```\n\n');
+                state.write('```');
+                state.closeBlock(node);
             },
             heading(state, node) {
                 state.write(state.repeat('#', node.attrs.level) + ' ');
                 state.renderInline(node);
-                state.write('\n\n');
+                state.write('\n');
+                state.closeBlock(node);
             },
             horizontalRule(state, node) {
                 state.write(node.attrs.markup || '---');
-                state.write('\n\n');
+                state.write('\n');
+                state.closeBlock(node);
             },
             hardBreak(state, node, parent, index) {
                 for (let i = index + 1; i < parent.childCount; i++) {

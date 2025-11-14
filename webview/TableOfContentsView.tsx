@@ -57,13 +57,36 @@ export const TableOfContentsView: React.FC<TableOfContentsViewProps> = ({ editor
             editor.commands.setTextSelection(targetPos);
             editor.commands.focus();
             
-            // Scroll the heading into view with smooth behavior
+            // Scroll using coordsAtPos for more accurate positioning
             setTimeout(() => {
                 const { view } = editor;
-                const domNode = view.domAtPos(targetPos!);
-                if (domNode && domNode.node) {
-                    const element = domNode.node instanceof Element ? domNode.node : domNode.node.parentElement;
-                    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                try {
+                    // Get the coordinates of the position
+                    const coords = view.coordsAtPos(targetPos!);
+                    
+                    // Get the editor's DOM element
+                    const editorElement = view.dom;
+                    const scrollContainer = editorElement.parentElement;
+                    
+                    if (scrollContainer) {
+                        // Calculate the scroll position
+                        const containerRect = scrollContainer.getBoundingClientRect();
+                        const scrollTop = coords.top - containerRect.top + scrollContainer.scrollTop - 20;
+                        
+                        // Smooth scroll to the position
+                        scrollContainer.scrollTo({
+                            top: scrollTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                } catch (error) {
+                    console.error('[TOC] Error scrolling to heading:', error);
+                    // Fallback: try to find the DOM node and scroll to it
+                    const domNode = view.domAtPos(targetPos!);
+                    if (domNode && domNode.node) {
+                        const element = domNode.node instanceof Element ? domNode.node : domNode.node.parentElement;
+                        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }
             }, 50);
         }

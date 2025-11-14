@@ -293,6 +293,58 @@ export class TiptapEditorProvider implements vscode.CustomTextEditorProvider {
             text-decoration: underline;
         }
 
+        /* Table styles */
+        .tiptap-editor table {
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 100%;
+            margin: 1em 0;
+            overflow: hidden;
+        }
+
+        .tiptap-editor td,
+        .tiptap-editor th {
+            min-width: 1em;
+            border: 1px solid var(--vscode-panel-border);
+            padding: 8px 12px;
+            vertical-align: top;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .tiptap-editor th {
+            font-weight: bold;
+            text-align: left;
+            background-color: var(--vscode-editor-inactiveSelectionBackground);
+        }
+
+        .tiptap-editor .selectedCell:after {
+            z-index: 2;
+            position: absolute;
+            content: "";
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: var(--vscode-editor-selectionBackground);
+            pointer-events: none;
+        }
+
+        .tiptap-editor .column-resize-handle {
+            position: absolute;
+            right: -2px;
+            top: 0;
+            bottom: -2px;
+            width: 4px;
+            background-color: var(--vscode-focusBorder);
+            pointer-events: none;
+        }
+
+        .tiptap-editor .tableWrapper {
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+
         .raw-editor-container {
             display: flex;
             flex-direction: column;
