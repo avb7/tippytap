@@ -1,6 +1,6 @@
 # TippyTap - WYSIWYG Markdown Editor for VS Code/Cursor
 
-A powerful VS Code extension that transforms markdown editing with a modern WYSIWYG editor powered by [Tiptap](https://tiptap.dev). Edit markdown files visually with real-time preview, smart diff detection for AI edits, and seamless integration with Cursor IDE.
+A powerful VS Code extension that transforms markdown editing with a modern WYSIWYG editor powered. Edit markdown files visually with real-time preview, smart diff detection for AI edits, and seamless integration with Cursor IDE.
 
 <img width="1755" height="769" alt="Screenshot 2025-11-13 at 11 54 07 PM" src="https://github.com/user-attachments/assets/d6363051-61d6-4c66-aeab-376d8218b102" />
 
