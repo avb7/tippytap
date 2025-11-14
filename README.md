@@ -4,9 +4,6 @@ A powerful VS Code extension that transforms markdown editing with a modern WYSI
 
 <img width="1755" height="769" alt="Screenshot 2025-11-13 at 11 54 07 PM" src="https://github.com/user-attachments/assets/d6363051-61d6-4c66-aeab-376d8218b102" />
 
-<img width="336" height="167" alt="Screenshot 2025-11-13 at 11 54 15 PM" src="https://github.com/user-attachments/assets/80e1fdfb-a09e-48b2-896b-0b4a054680e6" />
-
-
 ## Features
 
 ### Rich Text Editing
@@ -48,6 +45,7 @@ A powerful VS Code extension that transforms markdown editing with a modern WYSI
 - **Mermaid diagram rendering** with editable code view for visual charts and diagrams
 
 ## Usage
+<img width="336" height="167" alt="Screenshot 2025-11-13 at 11 54 15 PM" src="https://github.com/user-attachments/assets/80e1fdfb-a09e-48b2-896b-0b4a054680e6" />
 
 ### Opening Files
 
