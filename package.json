@@ -1,0 +1,99 @@
+{
+  "name": "tippytap",
+  "displayName": "TippyTap",
+  "description": "A beautiful WYSIWYG markdown editor with AI diff support",
+  "version": "0.0.1",
+  "publisher": "aditya-bhatnagar",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avb7/tippytap"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCustomEditor:tippytap.editor"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "tippytap.editor",
+        "displayName": "TippyTap",
+        "selector": [
+          {
+            "filenamePattern": "*.md"
+          }
+        ],
+        "priority": "option"
+      }
+    ],
+    "commands": [
+      {
+        "command": "tippytap.toggleRawView",
+        "title": "Toggle Raw Markdown View",
+        "category": "TippyTap"
+      },
+      {
+        "command": "tippytap.openWithTippyTap",
+        "title": "Open with TippyTap",
+        "category": "TippyTap"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "tippytap.openWithTippyTap",
+          "when": "resourceLangId == markdown",
+          "group": "navigation@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "npm run build:extension && npm run build:webview",
+    "build:extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --sourcemap",
+    "build:webview": "esbuild webview/index.tsx --bundle --outfile=dist/webview.js --format=iife --platform=browser --sourcemap --loader:.css=text",
+    "watch": "npm run watch:extension & npm run watch:webview",
+    "watch:extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --sourcemap --watch",
+    "watch:webview": "esbuild webview/index.tsx --bundle --outfile=dist/webview.js --format=iife --platform=browser --sourcemap --loader:.css=text --watch",
+    "compile": "npm run build",
+    "lint": "eslint src --ext ts",
+    "package": "npx @vscode/vsce package --no-dependencies",
+    "reinstall": "./reinstall.sh"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "esbuild": "^0.19.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@tiptap/core": "^3.10.7",
+    "@tiptap/extension-file-handler": "^3.10.7",
+    "@tiptap/extension-table": "^3.10.7",
+    "@tiptap/extension-table-cell": "^3.10.7",
+    "@tiptap/extension-table-header": "^3.10.7",
+    "@tiptap/extension-table-row": "^3.10.7",
+    "@tiptap/pm": "^3.10.7",
+    "@tiptap/react": "^3.10.7",
+    "@tiptap/starter-kit": "^3.10.7",
+    "diff": "^8.0.2",
+    "markdown-it": "^14.1.0",
+    "mermaid": "^11.12.1",
+    "prosemirror-markdown": "^1.12.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
